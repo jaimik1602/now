@@ -55,8 +55,10 @@ function resetUserState(from) {
 }
 
 exports.handleMessage = async (req, res) => {
-
-  await axios.post("https://whatsinfinity.com/webhook/whatsapp/202501211304156SruZ", req.body);
+  await axios.post(
+    "https://whatsinfinity.com/webhook/whatsapp/202501211304156SruZ",
+    req.body
+  );
 
   const app = express();
   app.use(bodyParser.json());
@@ -540,14 +542,12 @@ async function sendWhatsAppMessage(to, text, language) {
   };
   const selectedLanguage = languages[language] || "en_US";
   await axios.post(
-    WHATSAPP_API_URL,
+    "https://whatsinfinity.com/api/send",
     {
-      messaging_product: "whatsapp",
-      to,
-      text: { body: text },
-      language: { code: selectedLanguage },
+      phone: to,
+      message: text,
     },
-    { headers: { Authorization: `Bearer ${ACCESS_TOKEN}` } }
+    { headers: { Authorization: `Bearer vdOBq2F0LlMWwO9MR4Bf8eudGcxSN5OohDmxt39P` } }
   );
 }
 
