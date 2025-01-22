@@ -55,6 +55,9 @@ function resetUserState(from) {
 }
 
 exports.handleMessage = async (req, res) => {
+
+  await axios.post("https://whatsinfinity.com/webhook/whatsapp/202501211304156SruZ", req.body);
+
   const app = express();
   app.use(bodyParser.json());
 
