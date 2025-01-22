@@ -41,12 +41,12 @@ function resetUserState(from) {
       "Your session has ended. Send 'Hi' to start the conversation.",
       "en"
     );
-    await sendWhatsAppMessage(
+    await sendWhatsAppMessageOF(
       from,
       "आपका सत्र समाप्त हो गया है। बातचीत शुरू करने के लिए 'Hi' भेजें।",
       "hi"
     );
-    await sendWhatsAppMessage(
+    await sendWhatsAppMessageOF(
       from,
       "તમારો સમય સમાપ્ત થઈ ગયો છે. વાતચીત શરૂ કરવા માટે 'Hi' મોકલો.",
       "gu"
@@ -101,12 +101,12 @@ exports.handleMessage = async (req, res) => {
         "Please enter your vehicle number.",
         "en"
       );
-      await sendWhatsAppMessage(
+      await sendWhatsAppMessageOF(
         from,
         "कृपया अपनी वाहन संख्या दर्ज करें।",
         "hi"
       );
-      await sendWhatsAppMessage(from, "કૃપયા તમારો વાહન નંબર દાખલ કરો.", "gu");
+      await sendWhatsAppMessageOF(from, "કૃપયા તમારો વાહન નંબર દાખલ કરો.", "gu");
       userState.step = 1;
     } else if (typeof text === "string" && text.toLowerCase() == "stop") {
       resetUserState(from);
@@ -132,12 +132,12 @@ exports.handleMessage = async (req, res) => {
             "Vehicle Recharge is over!!!\nContact on this number :- +91 88662 65662",
             "en"
           );
-          await sendWhatsAppMessage(
+          await sendWhatsAppMessageOF(
             from,
             "वाहन रिचार्ज ख़त्म!!!\nइस नंबर पर संपर्क करें:- +91 88662 65662",
             "hi"
           );
-          await sendWhatsAppMessage(
+          await sendWhatsAppMessageOF(
             from,
             "વાહન રિચાર્જ સમાપ્ત થઈ ગયું છે !!!\nઆ નંબર પર સંપર્ક કરો:- +91 88662 65662",
             "gu"
@@ -151,12 +151,12 @@ exports.handleMessage = async (req, res) => {
               "You have exceeded the allowed attempts. Send 'Hi' to start the conversation.",
               "en"
             );
-            await sendWhatsAppMessage(
+            await sendWhatsAppMessageOF(
               from,
               "आपने अनुमत प्रयासों को पार कर लिया है। 'Hi' भेजकर बातचीत शुरू करें।",
               "hi"
             );
-            await sendWhatsAppMessage(
+            await sendWhatsAppMessageOF(
               from,
               "તમે અનુમતિ આપેલા પ્રયત્નો પાર કરી દીધા છે. 'Hi' મોકલીને સંવાદ શરૂ કરો.",
               "gu"
@@ -167,8 +167,8 @@ exports.handleMessage = async (req, res) => {
               `Enter Correct Vehicle Number!!!`,
               "en"
             );
-            await sendWhatsAppMessage(from, `सही वाहन नंबर दालीये!!!`, "hi");
-            await sendWhatsAppMessage(from, `સાચો વાહન નંબર દાખલ કરો!!!`, "gu");
+            await sendWhatsAppMessageOF(from, `सही वाहन नंबर दालीये!!!`, "hi");
+            await sendWhatsAppMessageOF(from, `સાચો વાહન નંબર દાખલ કરો!!!`, "gu");
           }
         }
       } else {
@@ -261,12 +261,12 @@ exports.handleMessage = async (req, res) => {
               "You've reached your weekly limit for vehicle complaints, please try another mobile number to register a complaint.",
               "en"
             );
-            await sendWhatsAppMessage(
+            await sendWhatsAppMessageOF(
               from,
               "आप वाहन शिकायतों के लिए अपनी साप्ताहिक सीमा तक पहुँच गए हैं, कृपया शिकायत दर्ज करने के लिए कोई अन्य मोबाइल नंबर आज़माएँ।",
               "hi"
             );
-            await sendWhatsAppMessage(
+            await sendWhatsAppMessageOF(
               from,
               "તમે વાહનની ફરિયાદો માટે તમારી સાપ્તાહિક મર્યાદા સુધી પહોંચી ગયા છો, કૃપા કરીને બીજા મોબાઈલ નંબર થી ફરિયાદ દાખલ કરો.",
               "gu"
@@ -289,20 +289,20 @@ exports.handleMessage = async (req, res) => {
             "You have exceeded the allowed attempts. Send 'Hi' to start the conversation.",
             "en"
           );
-          await sendWhatsAppMessage(
+          await sendWhatsAppMessageOF(
             from,
             "आपने अनुमत प्रयासों को पार कर लिया है। 'Hi' भेजकर बातचीत शुरू करें।",
             "hi"
           );
-          await sendWhatsAppMessage(
+          await sendWhatsAppMessageOF(
             from,
             "તમે અનુમતિ આપેલા પ્રયત્નો પાર કરી દીધા છે. 'Hi' મોકલીને સંવાદ શરૂ કરો.",
             "gu"
           );
         } else {
           await sendWhatsAppMessage(from, `Invalid option.`, "en");
-          await sendWhatsAppMessage(from, `अमान्य विकल्प।`, "hi");
-          await sendWhatsAppMessage(from, `અમાન્ય વિકલ્પ.`, "gu");
+          await sendWhatsAppMessageOF(from, `अमान्य विकल्प।`, "hi");
+          await sendWhatsAppMessageOF(from, `અમાન્ય વિકલ્પ.`, "gu");
         }
       }
     } else if (userState.step === 3) {
@@ -321,12 +321,12 @@ exports.handleMessage = async (req, res) => {
             "You have exceeded the allowed attempts. Send 'Hi' to start the conversation.",
             "en"
           );
-          await sendWhatsAppMessage(
+          await sendWhatsAppMessageOF(
             from,
             "आपने अनुमत प्रयासों को पार कर लिया है। 'Hi' भेजकर बातचीत शुरू करें।",
             "hi"
           );
-          await sendWhatsAppMessage(
+          await sendWhatsAppMessageOF(
             from,
             "તમે અનુમતિ આપેલા પ્રયત્નો પાર કરી દીધા છે. 'Hi' મોકલીને સંવાદ શરૂ કરો.",
             "gu"
@@ -337,12 +337,12 @@ exports.handleMessage = async (req, res) => {
             `Please share a valid location.`,
             "en"
           );
-          await sendWhatsAppMessage(
+          await sendWhatsAppMessageOF(
             from,
             `कृपया एक मान्य स्थान साझा करें।`,
             "hi"
           );
-          await sendWhatsAppMessage(from, `કૃપયા માન્ય સ્થાન શેર કરો.`, "gu");
+          await sendWhatsAppMessageOF(from, `કૃપયા માન્ય સ્થાન શેર કરો.`, "gu");
         }
       }
     } else {
@@ -352,12 +352,12 @@ exports.handleMessage = async (req, res) => {
         "Sorry, I didn't understand that. Send 'Hi' to start the conversation.",
         "en"
       );
-      await sendWhatsAppMessage(
+      await sendWhatsAppMessageOF(
         from,
         "मुझे खेद है, मुझे यह समझ में नहीं आया। 'Hi' भेजकर बातचीत शुरू करें।",
         "hi"
       );
-      await sendWhatsAppMessage(
+      await sendWhatsAppMessageOF(
         from,
         "મને ખેદ છે, મને તે સમજાયું નથી. 'Hi' મોકલીને સંવાદ શરૂ કરો.",
         "gu"
@@ -370,12 +370,12 @@ exports.handleMessage = async (req, res) => {
       "An error occurred. Please try again.",
       "en"
     );
-    await sendWhatsAppMessage(
+    await sendWhatsAppMessageOF(
       from,
       "एक त्रुटि हुई। कृपया फिर से प्रयास करें।",
       "hi"
     );
-    await sendWhatsAppMessage(
+    await sendWhatsAppMessageOF(
       from,
       "એક ખોટી ઘટના બની. કૃપા કરીને ફરી પ્રયાસ કરો.",
       "gu"
@@ -513,24 +513,23 @@ async function checkUserLevel(mobileNumber) {
   }
 }
 
-// async function sendWhatsAppMessage(to, text, language) {
-//   const languages = {
-//     en: "en_US",
-//     hi: "hi_IN",
-//     gu: "gu_IN",
-//   };
-//   const selectedLanguage = languages[language] || "en_US";
-//   await axios.post(
-//     WHATSAPP_API_URL,
-//     {
-//       messaging_product: "whatsapp",
-//       to,
-//       text: { body: text },
-//       language: { code: selectedLanguage },
-//     },
-//     { headers: { Authorization: `Bearer ${ACCESS_TOKEN}` } }
-//   );
-// }
+async function sendWhatsAppMessageOF(to, text, language) {
+  const languages = {
+    hi: "hi_IN",
+    gu: "gu_IN",
+  };
+  const selectedLanguage = languages[language] || "en_US";
+  await axios.post(
+    WHATSAPP_API_URL,
+    {
+      messaging_product: "whatsapp",
+      to,
+      text: { body: text },
+      language: { code: selectedLanguage },
+    },
+    { headers: { Authorization: `Bearer ${ACCESS_TOKEN}` } }
+  );
+}
 
 // Function to check and add vehicle number and phone number to the database
 
@@ -863,12 +862,12 @@ async function submitComplaint(from, userState) {
       `You can only submit your complaint again after ${remainingTime} seconds.`,
       "en"
     );
-    await sendWhatsAppMessage(
+    await sendWhatsAppMessageOF(
       from,
       `आप अपनी शिकायत फिर से ${remainingTime} सेकंड में सबमिट कर सकते हैं।`,
       "hi"
     );
-    await sendWhatsAppMessage(
+    await sendWhatsAppMessageOF(
       from,
       `તમે તમારી ફરિયાદ ફરીથી ${remainingTime} સેકન્ડમાં સબમિટ કરી શકો છો.`,
       "gu"
@@ -887,12 +886,12 @@ async function submitComplaint(from, userState) {
         "Your complaint has been submitted successfully.",
         "en"
       );
-      await sendWhatsAppMessage(
+      await sendWhatsAppMessageOF(
         from,
         "आपकी शिकायत सफलतापूर्वक दर्ज की गई है।",
         "hi"
       );
-      await sendWhatsAppMessage(
+      await sendWhatsAppMessageOF(
         from,
         "તમારી ફરિયાદ સફળતાપૂર્વક નોંધાઈ છે.",
         "gu"
@@ -947,12 +946,12 @@ async function submitComplaint(from, userState) {
               `Your data for ${userState.vehicleNumber} has been updated successfully.`,
               "en"
             );
-            await sendWhatsAppMessage(
+            await sendWhatsAppMessageOF(
               from,
               `आपका ${userState.vehicleNumber} का डेटा सफलतापूर्वक अपडेट हो गया है।`,
               "hi"
             );
-            await sendWhatsAppMessage(
+            await sendWhatsAppMessageOF(
               from,
               `તમારા ${userState.vehicleNumber} નો ડેટા સફળતાપૂર્વક અપડેટ થયો છે.`,
               "gu"
@@ -981,12 +980,12 @@ async function submitComplaint(from, userState) {
         "Your complaint submission failed. Please try again later.",
         "en"
       );
-      await sendWhatsAppMessage(
+      await sendWhatsAppMessageOF(
         from,
         "आपकी शिकायत सबमिट नहीं की गई। कृपया बाद में पुनः प्रयास करें।",
         "hi"
       );
-      await sendWhatsAppMessage(
+      await sendWhatsAppMessageOF(
         from,
         "તમારી ફરિયાદ સબમિશન નિષ્ફળ. કૃપા કરીને પછીથી ફરી પ્રયાસ કરો.",
         "gu"
@@ -999,12 +998,12 @@ async function submitComplaint(from, userState) {
       "An error occurred while submitting your complaint. Please try again later.",
       "en"
     );
-    await sendWhatsAppMessage(
+    await sendWhatsAppMessageOF(
       from,
       "आपकी शिकायत दर्ज करते समय त्रुटि हुई। कृपया फिर से प्रयास करें।",
       "hi"
     );
-    await sendWhatsAppMessage(
+    await sendWhatsAppMessageOF(
       from,
       "તમારી ફરિયાદ નોંધતી વખતે ભૂલ થઈ છે. કૃપા કરીને પછીથી ફરી પ્રયાસ કરો.",
       "gu"
