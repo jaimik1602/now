@@ -55,8 +55,10 @@ function resetUserState(from) {
 }
 
 exports.handleMessage = async (req, res) => {
-
-  await axios.post("https://whatsinfinity.com/webhook/whatsapp/202501211304156SruZ", req.body);
+  await axios.post(
+    "https://whatsinfinity.com/webhook/whatsapp/202501211304156SruZ",
+    req.body
+  );
 
   const app = express();
   app.use(bodyParser.json());
@@ -540,14 +542,18 @@ async function sendWhatsAppMessage(to, text, language) {
   };
   const selectedLanguage = languages[language] || "en_US";
   await axios.post(
-    WHATSAPP_API_URL,
+    "https://whatsinfinity.com/api/send",
     {
-      messaging_product: "whatsapp",
-      to,
-      text: { body: text },
-      language: { code: selectedLanguage },
+      phone: to,
+      message: text,
     },
-    { headers: { Authorization: `Bearer ${ACCESS_TOKEN}` } }
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer vdOBq2F0LlMWwO9MR4Bf8eudGcxSN5OohDmxt39P",
+      },
+      maxBodyLength: Infinity,
+    }
   );
 }
 
@@ -615,46 +621,25 @@ async function sendInteractiveMessage(to, vehicleDetails) {
   ] = vehicleDetails;
 
   await axios.post(
-    WHATSAPP_API_URL,
+    "https://whatsinfinity.com/api/send",
     {
-      messaging_product: "whatsapp",
-      recipient_type: "individual",
-      to, // The recipient's phone number
-      type: "interactive",
-      interactive: {
-        type: "button",
-        header: {
-          type: "text",
-          text: "Vehicle Information",
-        },
-        body: {
-          text: `Vehicle Number: ${
-            formattedVehicleNumber || "N/A"
-          }\nLatitude: ${deviceId || "N/A"}\nLongitude: ${agency || "N/A"}
+      phone: to, // The recipient's phone number
+      message: `Vehicle Number: ${formattedVehicleNumber || "N/A"}\nLatitude: ${
+        deviceId || "N/A"
+      }\nLongitude: ${agency || "N/A"}
                 \nSpeed: ${subAgency || "N/A"}\nReceived Date: ${
-            receivedDate || "N/A"
-          }\nServer Time: ${serverTime || "N/A"}`,
-        },
-        footer: {
-          text: "Tap to update.",
-        },
-        action: {
-          buttons: [
-            {
-              type: "reply",
-              reply: {
-                id: "update_button",
-                title: "Update",
-              },
-            },
-          ],
-        },
-      },
+        receivedDate || "N/A"
+      }\nServer Time: ${serverTime || "N/A"}`,
+      header: "Vehicle Information",
+      footer: "Tap to update",
+      buttons: [{ id: "update_button", title: "Update" }],
     },
     {
       headers: {
-        Authorization: `Bearer ${ACCESS_TOKEN}`, // Bearer token for authorization
+        "Content-Type": "application/json",
+        Authorization: "Bearer vdOBq2F0LlMWwO9MR4Bf8eudGcxSN5OohDmxt39P",
       },
+      maxBodyLength: Infinity,
     }
   );
 }
