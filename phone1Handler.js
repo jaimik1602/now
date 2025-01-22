@@ -106,7 +106,11 @@ exports.handleMessage = async (req, res) => {
         "कृपया अपनी वाहन संख्या दर्ज करें।",
         "hi"
       );
-      await sendWhatsAppMessageOF(from, "કૃપયા તમારો વાહન નંબર દાખલ કરો.", "gu");
+      await sendWhatsAppMessageOF(
+        from,
+        "કૃપયા તમારો વાહન નંબર દાખલ કરો.",
+        "gu"
+      );
       userState.step = 1;
     } else if (typeof text === "string" && text.toLowerCase() == "stop") {
       resetUserState(from);
@@ -168,7 +172,11 @@ exports.handleMessage = async (req, res) => {
               "en"
             );
             await sendWhatsAppMessageOF(from, `सही वाहन नंबर दालीये!!!`, "hi");
-            await sendWhatsAppMessageOF(from, `સાચો વાહન નંબર દાખલ કરો!!!`, "gu");
+            await sendWhatsAppMessageOF(
+              from,
+              `સાચો વાહન નંબર દાખલ કરો!!!`,
+              "gu"
+            );
           }
         }
       } else {
@@ -534,12 +542,6 @@ async function sendWhatsAppMessageOF(to, text, language) {
 // Function to check and add vehicle number and phone number to the database
 
 async function sendWhatsAppMessage(to, text, language) {
-  const languages = {
-    en: "en_US",
-    hi: "hi_IN",
-    gu: "gu_IN",
-  };
-  const selectedLanguage = languages[language] || "en_US";
   await axios.post(
     "https://whatsinfinity.com/api/send",
     {
