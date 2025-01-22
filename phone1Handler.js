@@ -544,7 +544,7 @@ async function sendWhatsAppMessage(to, text, language) {
   await axios.post(
     "https://whatsinfinity.com/api/send",
     {
-      phone: to,
+      phone: "+" + to,
       message: text,
     },
     {
@@ -623,7 +623,7 @@ async function sendInteractiveMessage(to, vehicleDetails) {
   await axios.post(
     "https://whatsinfinity.com/api/send",
     {
-      phone: to, // The recipient's phone number
+      phone: "+" + to, // The recipient's phone number
       message: `Vehicle Number: ${formattedVehicleNumber || "N/A"}\nLatitude: ${
         deviceId || "N/A"
       }\nLongitude: ${agency || "N/A"}
