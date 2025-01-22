@@ -547,7 +547,11 @@ async function sendWhatsAppMessage(to, text, language) {
       phone: to,
       message: text,
     },
-    { headers: { Authorization: `Bearer vdOBq2F0LlMWwO9MR4Bf8eudGcxSN5OohDmxt39P` } }
+    {
+      headers: {
+        Authorization: `Bearer vdOBq2F0LlMWwO9MR4Bf8eudGcxSN5OohDmxt39P`,
+      },
+    }
   );
 }
 
@@ -615,45 +619,27 @@ async function sendInteractiveMessage(to, vehicleDetails) {
   ] = vehicleDetails;
 
   await axios.post(
-    WHATSAPP_API_URL,
+    "https://whatsinfinity.com/api/send",
     {
-      messaging_product: "whatsapp",
-      recipient_type: "individual",
-      to, // The recipient's phone number
-      type: "interactive",
-      interactive: {
-        type: "button",
-        header: {
-          type: "text",
-          text: "Vehicle Information",
+      phone: to, // The recipient's phone number
+      message: `Vehicle Number: ${formattedVehicleNumber || "N/A"}\nLatitude: ${
+        deviceId || "N/A"
+      }\nLongitude: ${agency || "N/A"}
+            \nSpeed: ${subAgency || "N/A"}\nReceived Date: ${
+        receivedDate || "N/A"
+      }\nServer Time: ${serverTime || "N/A"}`,
+      header: "Vehicle Information",
+      footer: "Tap to update",
+      buttons: [
+        {
+          id: "update_button",
+          title: "Update",
         },
-        body: {
-          text: `Vehicle Number: ${
-            formattedVehicleNumber || "N/A"
-          }\nLatitude: ${deviceId || "N/A"}\nLongitude: ${agency || "N/A"}
-                \nSpeed: ${subAgency || "N/A"}\nReceived Date: ${
-            receivedDate || "N/A"
-          }\nServer Time: ${serverTime || "N/A"}`,
-        },
-        footer: {
-          text: "Tap to update.",
-        },
-        action: {
-          buttons: [
-            {
-              type: "reply",
-              reply: {
-                id: "update_button",
-                title: "Update",
-              },
-            },
-          ],
-        },
-      },
+      ],
     },
     {
       headers: {
-        Authorization: `Bearer ${ACCESS_TOKEN}`, // Bearer token for authorization
+        Authorization: `Bearer vdOBq2F0LlMWwO9MR4Bf8eudGcxSN5OohDmxt39P`, // Bearer token for authorization
       },
     }
   );
