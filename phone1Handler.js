@@ -192,56 +192,9 @@ exports.handleMessage = async (req, res) => {
           userState.imei = response.data[0].deviceid;
           userState.agency = response.data[0].agency;
           userState.subagency = response.data[0].subagency;
-
-          // if (
-          //   userState.subagency == "GaneshAtlanta" ||
-          //   userState.subagency == "MARUTI"
-          // ) {
-          //   resetUserState(from);
-          //   await sendWhatsAppMessage(
-          //     from,
-          //     "Subagency is restricted. For better service, please contact 88662 65662 on WhatsApp.",
-          //     "en"
-          //   );
-          //   await sendWhatsAppMessage(
-          //     from,
-          //     "सब एजेंसी प्रतिबंधित है। बेहतर सेवा के लिए कृपया 88662 65662 पर WhatsApp पर संपर्क करें।",
-          //     "hi"
-          //   );
-          //   await sendWhatsAppMessage(
-          //     from,
-          //     "સબએજન્સી પ્રતિબંધિત છે. વધુ સારી સેવા માટે, કૃપા કરીને WhatsApp પર 88662 65662 પર સંપર્ક કરો.",
-          //     "gu"
-          //   );
-          // } else {
-          await sendInteractiveMessage(from, [
-            formattedVehicleNumber,
-            response.data[0].lattitude,
-            response.data[0].longitude,
-            response.data[0].speed,
-            response.data[0].received_Date,
-            response.data[0].servertime,
-          ]);
-          userState.step = 2;
-          // }
-        } else {
-          //
-          var result = await weekCheck(
-            formattedVehicleNumber,
-            phoneNumber,
-            currentWeek,
-            userlevel.vehicle_count
-          );
-          if (result) {
-            userState.vehicleNumber = formattedVehicleNumber;
-            userState.imei = response.data[0].deviceid;
-            userState.agency = response.data[0].agency;
-            userState.subagency = response.data[0].subagency;
-            // if (
-            //   userState.subagency == "GaneshAtlanta" ||
-            //   userState.subagency == "MARUTI"
-            // ) {
-            //   resetUserState(from);
+          console.log(sub_block);
+          if (sub_block) {
+            resetUserState(from);
             //   await sendWhatsAppMessage(
             //     from,
             //     "Subagency is restricted. For better service, please contact 88662 65662 on WhatsApp.",
@@ -257,7 +210,7 @@ exports.handleMessage = async (req, res) => {
             //     "સબએજન્સી પ્રતિબંધિત છે. વધુ સારી સેવા માટે, કૃપા કરીને WhatsApp પર 88662 65662 પર સંપર્ક કરો.",
             //     "gu"
             //   );
-            // } else {
+          } else {
             await sendInteractiveMessage(from, [
               formattedVehicleNumber,
               response.data[0].lattitude,
@@ -267,7 +220,48 @@ exports.handleMessage = async (req, res) => {
               response.data[0].servertime,
             ]);
             userState.step = 2;
-            // }
+          }
+        } else {
+          //
+          var result = await weekCheck(
+            formattedVehicleNumber,
+            phoneNumber,
+            currentWeek,
+            userlevel.vehicle_count
+          );
+          if (result) {
+            userState.vehicleNumber = formattedVehicleNumber;
+            userState.imei = response.data[0].deviceid;
+            userState.agency = response.data[0].agency;
+            userState.subagency = response.data[0].subagency;
+            if (sub_block) {
+              resetUserState(from);
+              //   await sendWhatsAppMessage(
+              //     from,
+              //     "Subagency is restricted. For better service, please contact 88662 65662 on WhatsApp.",
+              //     "en"
+              //   );
+              //   await sendWhatsAppMessage(
+              //     from,
+              //     "सब एजेंसी प्रतिबंधित है। बेहतर सेवा के लिए कृपया 88662 65662 पर WhatsApp पर संपर्क करें।",
+              //     "hi"
+              //   );
+              //   await sendWhatsAppMessage(
+              //     from,
+              //     "સબએજન્સી પ્રતિબંધિત છે. વધુ સારી સેવા માટે, કૃપા કરીને WhatsApp પર 88662 65662 પર સંપર્ક કરો.",
+              //     "gu"
+              //   );
+            } else {
+              await sendInteractiveMessage(from, [
+                formattedVehicleNumber,
+                response.data[0].lattitude,
+                response.data[0].longitude,
+                response.data[0].speed,
+                response.data[0].received_Date,
+                response.data[0].servertime,
+              ]);
+              userState.step = 2;
+            }
           } else {
             resetUserState(from);
             await sendWhatsAppMessage(
