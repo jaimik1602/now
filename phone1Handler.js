@@ -181,12 +181,15 @@ exports.handleMessage = async (req, res) => {
         }
       } else {
         var userlevel = await checkUserLevel(phoneNumber);
+        const sub_block = await checkSubAgencyStatus(userState.subagency);
+
         //user level check
         if (userlevel.user_level) {
           userState.vehicleNumber = formattedVehicleNumber;
           userState.imei = response.data[0].deviceid;
           userState.agency = response.data[0].agency;
           userState.subagency = response.data[0].subagency;
+          await saveSubAgencyToDatabase(userState.subagency);
           // if (
           //   userState.subagency == "GaneshAtlanta" ||
           //   userState.subagency == "MARUTI"
@@ -469,6 +472,46 @@ async function weekCheck(vehicleNumber, mobileNumber, currentWeek, limit) {
     }
   } catch (err) {
     return { message: "Database error.", error: err }; // Handle any errors
+  }
+}
+
+// Function to save unique sub-agency to the database
+async function saveSubAgencyToDatabase(subAgency) {
+  try {
+    // Check if the sub-agency already exists in the sub_agncy table
+    const checkQuery = `SELECT * FROM sub_agncy WHERE sub_agency = ?`;
+    const [results] = await db.execute(checkQuery, [subAgency]);
+
+    if (results.length > 0) {
+      console.log(`Sub-agency already exists: ${subAgency}`);
+      return; // Do nothing if the sub-agency already exists
+    }
+
+    // Insert the unique sub-agency into the database
+    const insertQuery = `INSERT INTO sub_agncy (sub_agency) VALUES (?)`;
+    await db.execute(insertQuery, [subAgency]);
+    console.log(`Saved new sub-agency: ${subAgency}`);
+  } catch (err) {
+    console.error("Error interacting with the sub_agncy table:", err);
+  }
+}
+
+// Function to check sub-agency status
+async function checkSubAgencyStatus(subAgency) {
+  try {
+    // Query to check the status of the sub-agency
+    const query = "SELECT status FROM sub_agncy WHERE sub_agency = ? LIMIT 1";
+    const [results] = await db.execute(query, [subAgency]);
+
+    if (results.length === 0) {
+      console.log(`Sub-agency ${subAgency} not found.`);
+      return false; // If the sub-agency doesn't exist, return false
+    }
+
+    return results[0].status === 1; // Return true if the sub-agency status is 1 (blocked)
+  } catch (error) {
+    console.error("Error checking sub-agency status:", error);
+    throw new Error("Database error");
   }
 }
 
