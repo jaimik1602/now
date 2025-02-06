@@ -181,7 +181,10 @@ exports.handleMessage = async (req, res) => {
         }
       } else {
         var userlevel = await checkUserLevel(phoneNumber);
-        const sub_block = await checkSubAgencyStatus(userState.subagency);
+        await saveSubAgencyToDatabase(response.data[0].subagency);
+        const sub_block = await checkSubAgencyStatus(
+          response.data[0].subagency
+        );
 
         //user level check
         if (userlevel.user_level) {
@@ -189,7 +192,7 @@ exports.handleMessage = async (req, res) => {
           userState.imei = response.data[0].deviceid;
           userState.agency = response.data[0].agency;
           userState.subagency = response.data[0].subagency;
-          await saveSubAgencyToDatabase(userState.subagency);
+
           // if (
           //   userState.subagency == "GaneshAtlanta" ||
           //   userState.subagency == "MARUTI"
