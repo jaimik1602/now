@@ -482,7 +482,7 @@ async function weekCheck(vehicleNumber, mobileNumber, currentWeek, limit) {
 async function saveSubAgencyToDatabase(subAgency) {
   try {
     // Check if the sub-agency already exists in the sub_agncy table
-    const checkQuery = `SELECT * FROM sub_agncy WHERE sub_agency = ?`;
+    const checkQuery = `SELECT * FROM sub_agancy WHERE sub_agency = ?`;
     const [results] = await db.execute(checkQuery, [subAgency]);
 
     if (results.length > 0) {
@@ -491,7 +491,7 @@ async function saveSubAgencyToDatabase(subAgency) {
     }
 
     // Insert the unique sub-agency into the database
-    const insertQuery = `INSERT INTO sub_agncy (sub_agency) VALUES (?)`;
+    const insertQuery = `INSERT INTO sub_agancy (sub_agency) VALUES (?)`;
     await db.execute(insertQuery, [subAgency]);
     console.log(`Saved new sub-agency: ${subAgency}`);
   } catch (err) {
@@ -503,7 +503,7 @@ async function saveSubAgencyToDatabase(subAgency) {
 async function checkSubAgencyStatus(subAgency) {
   try {
     // Query to check the status of the sub-agency
-    const query = "SELECT status FROM sub_agncy WHERE sub_agency = ? LIMIT 1";
+    const query = "SELECT status FROM sub_agancy WHERE sub_agency = ? LIMIT 1";
     const [results] = await db.execute(query, [subAgency]);
 
     if (results.length === 0) {
